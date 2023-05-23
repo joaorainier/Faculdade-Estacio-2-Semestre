@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+
+    <title>Mundo 2 - Trabalho 2 - Parte 2</title>
+
+
+    <style>
+        #pnlCatalogo {
+            flex: wrap;
+            padding: 20px;
+            
+        }
+        .card{
+            margin: 15px;
+        }
+    </style>
+    
+</head>
+
+<body onload="preencheCatalogo()">
+
+    <div class="container-fluid bg-warning">
+        <div id="pnlCatalogo"></div>
+
+    </div>
+
+    <script>
+
+        var receita = [
+            {
+                'titulo': "Cassoulet",
+                'imagem': "./cassoulet.jpg",
+                'preparo': "Deixe o feijão de molho por 4h, depois cozinhe e reserve. Enquanto isso, dessalgue a carne suína. Corte a linguiça, frite e reserve. Corte a carne suína e cozinhe até ficar macia, reserve. Em uma panela, doure a cebola no azeite. Adicione a cenoura e o salsão. Tempere com sal e pimenta, refogando por 6 minutos. Acrescente o alho e mexa por 1 minuto. Coloque o molho de tomate, o vinho branco, a água e misture. Em seguida, adicione as linguiças e a carne suína. Diminua o fogo e deixe cozinhar por 10 minutos. Acrescente o feijão e espere mais uns 5 minutos até engrossar.",
+                'ingredientes': ['500g de feijão branco', '500g de carne suína salgada e curada', '2 gomos de linguiça paios', '1 cebola média picada', '1 cenoura picada', '1 talo de salsão picado', 'Sal a gosto', 'Pimenta-do-reino a gosto', '2 dentes de alho triturados', '4 colheres de sopa de molho de tomate', '1/4 de xícara de vinho branco', '2 conchas de água']
+            },
+
+
+            {
+                'titulo': "Cremebrulee",
+                'imagem': "./cremebrulee.jpg",
+                'preparo': "  Misture as gemas, o açúcar refinado, a baunilha e acrescente o creme de leite à mistura e misture até obter um creme homogêneo. Leve o creme ao fogo em banho maria e mexa até que o creme forme uma fina camada na colher. Distribua o creme em seis tigelinhas, você pode usar uma peneira para tirar possíveis bolinhas que podem ter se formado. Deixe o creme na geladeira por pelo menos 5 horas. Coloque açúcar cristal sobre cada tigela e aqueça para formar o caramelo, o ideal é usar um maçarico culinário para dar a consistência ideal do crème brûlée.",
+                'ingredientes': ['8 gemas de ovos', '200g de açúcar refinado', 'Essência de baunilha', '1 litro de creme de leite fresco', 'Açúcar cristal para a cobertura de caramelo']
+            },
+
+
+            {
+                'titulo': "Croque Monsieur",
+                'imagem': "./croquemonsieur.jpg",
+                'preparo': "Em uma panela, coloque a manteiga e deixe derreter. Adicione a farinha, misture bem e deixe cozinhar por cerca de 2 minutos, sem parar de mexer. Gradualmente vá acrescentando o leite e mexendo. Deixe cozinhar até o molho engrossar. Desligue o fogo, coloque a noz-moscada, o sal e misture bem. Passe o molho em 2 fatias de pão, coloque o presunto, o queijo ralado e feche eles formando um sanduíche. Passe uma cama de molho em cima do sanduíche, salpique queijo ralado e leve para o forno preaquecido a 180º graus até gratinar. Agora é só servir. Bom apetite.",
+                'ingredientes': ['Molho:', '2 colheres de sopa de manteiga', '2 colheres de sopa de farinha de trigo','2 xícaras de chá de leite morno', 'Noz-moscada a gosto', 'Sal a gosto', 'Sanduíche:', '2 fatias de pão de sanduíche (sem casca)', '2 fatias de presunto', '80 gramas de queijo mussarela ralada']
+            },
+
+
+            {
+                'titulo': "File Mignon",
+                'imagem': "./filemignon.jpg",
+                'preparo': " Em uma vasilha, coloque os filés e tempere com sal e pimenta. Em uma frigideira com manteiga, grelhe os filés muito bem e dos dois lados. Reserve. Na mesma frigideira, doure as cebolas e, em seguida, adicione as ervilhas, o presunto em cubos e a batata palha. Sirva com a carne e aproveite.",
+                'ingredientes': ['500 gramas de filé mignon cortados em medalhão ou bifes mais fino', 'Sal a gosto', 'Pimenta-calabresa a gosto','Manteiga a gosto', '1 cebola', 'Ervilhas frescas a gosto', 'Presunto a gosto', 'Batata palha a gosto']
+            },
+        ]
+
+
+        var getListaIngredientes = (ingredientes) => {
+
+            var abertura = '<ul>';
+            var lista = '';
+            var conteudoLista = ingredientes.map((ingrediente) => {
+                lista += '<li>' + ingrediente + '</li>';
+            });
+            var fechamento = '</ul>';
+            var listaCompleta = abertura + lista + fechamento;
+            return listaCompleta;
+        }
+
+        var getCard = (receita) => {
+
+            receita.map((item) => {
+                var temp = item;
+                var cartao = document.getElementById('pnlCatalogo').innerHTML;
+
+
+                cartao +=
+                    `<div class="card"style="width:250px; display:inline-block">
+                    <img src=${temp.imagem} class="card-img-top">
+                    <div class="card-body">
+                        <h5 id="titulo"class="card-title">${temp.titulo}</h5>
+                        ${getListaIngredientes(temp.ingredientes)}<hr>
+                        <p class="card-text">${temp.preparo}</p>
+                    </div>
+                </div>
+                `;
+                document.getElementById('pnlCatalogo').innerHTML = cartao;
+
+            });
+        }
+
+        var preencheCatalogo = ()=>{
+            getCard(receita)
+        }
+
+
+    </script>
+</body>
+
+</html>
