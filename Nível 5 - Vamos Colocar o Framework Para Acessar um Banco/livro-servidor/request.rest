@@ -1,0 +1,15 @@
+POST http://localhost:3030/livros
+Content-Type: application/json
+
+{
+	"titulo": "Ciclano",
+	"codEditora": 2031,
+	"resumo": "Aqui vai um resumo",
+	"autores": ["teste", "segundo"]
+}
+
+###
+GET http://localhost:3030/livros
+
+###
+DELETE  http://localhost:3030/livros/647a8cd968e7eeb53778f232
